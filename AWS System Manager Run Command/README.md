@@ -1,3 +1,4 @@
+AWS System Manager Run Command - Hands-On Lab
 Many organizations have strict controls that prevent the use of bastion hosts or direct SSH/RDP remote access to servers from the Internet. This reduces the attack surface for critical computing services that are hosted in the cloud.
 
 AWS System Manager offers several tools that enable remote and secure management of EC2 Instances, edge devices, and on-premises servers or virtual machines (VM) in your hybrid environment that has been configured for Systems Manager. 
