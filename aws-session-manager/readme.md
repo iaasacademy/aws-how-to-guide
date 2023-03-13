@@ -5,3 +5,5 @@ Setup AWS Systems Manager Session Manager.
 Set up a KMS key for encryption and decryption of session logging data.
 Configure Session Manager Preferences for logging session data to an Amazon S3 bucket and Amazon CloudWatch.
 Configure a local client to perform RDP connection through session manager
+
+Learn how to setup and configure AWS Systems Manager Session Manager at https://youtu.be/8zp8yf-tykU
