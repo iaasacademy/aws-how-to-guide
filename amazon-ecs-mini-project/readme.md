@@ -1,1 +1,0 @@
-Amazon ECS Mini Project
