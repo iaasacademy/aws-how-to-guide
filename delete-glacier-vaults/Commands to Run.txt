@@ -4,13 +4,13 @@ aws glacier initiate-job --account-id [ACCOUNT_ID]  --vault-name [VAULT_NAME] --
 
 
 Step 2
-aws glacier describe-job –vault-name [awsexamplevault] –account-id [ACCOUNT_ID] –job-id *** jobid ***
+aws glacier describe-job –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –job-id *** jobid ***
 
 Step 3
-aws glacier get-job-output –vault-name [awsexamplevault] –account-id [ACCOUNT_ID] –job-id *** jobid *** output.json
+aws glacier get-job-output –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –job-id *** jobid *** output.json
 
 Step 4
 jq “.ArchiveList[] | .ArchiveId” output.json > archiveIds.txt
 
 Step 5
-aws glacier delete-archive –vault-name [awsexamplevault] –account-id [ACCOUNT_ID] –archive-id *** archiveid ***
+aws glacier delete-archive –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –archive-id *** archiveid ***
