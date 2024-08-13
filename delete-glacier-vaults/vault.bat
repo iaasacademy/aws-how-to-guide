@@ -11,7 +11,7 @@ if exist !file! (
 		set line=%%A
 		echo Deleting Archive !line!
     	echo Count: !count!
-    	aws glacier delete-archive --account-id 903452794896 --vault-name !vault! --archive-id=!line! --profile kevin
+    	aws glacier delete-archive --account-id [ACCOUNT_ID] --vault-name !vault! --archive-id=!line! --profile kevin
     	set /a count+=1
 		echo %%A 
 	)
