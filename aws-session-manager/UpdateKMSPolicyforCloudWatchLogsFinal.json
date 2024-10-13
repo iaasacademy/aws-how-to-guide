@@ -16,4 +16,4 @@
             "kms:EncryptionContext:aws:logs:arn": "arn:aws:logs:REGION:ACCOUNTID:*"
         }
     }
-},
+}
