@@ -1,0 +1,17 @@
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogGroups",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Resource": "YOURKMSKEYARN"
+        }
