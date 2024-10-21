@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.3
+  pre_build:
+    commands:
+      - echo "No composer.json file found. Skipping composer install."
+      # Log in to Amazon ECR to allow Docker commands to access your repository
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 426873959504.dkr.ecr.ap-southeast-1.amazonaws.com
+      
+  build:
+    commands:
+      - echo "Building the Docker image..."
+      # Use the your-code-folder as context to build the image
+      - docker build -t ritual-roast -f ritual-roast-code/Dockerfile ritual-roast-code
+      # Tag the image for ECR
+      - docker tag ritual-roast:latest 426873959504.dkr.ecr.ap-southeast-1.amazonaws.com/ritual-roast:latest
+      # Push the image to ECR
+      - echo "Pushing the Docker image to ECR..."
+      - docker push 426873959504.dkr.ecr.ap-southeast-1.amazonaws.com/ritual-roast:latest
+      # Create the imagedefinitions.json file
+      - echo '[{"name":"main","imageUri":"426873959504.dkr.ecr.ap-southeast-1.amazonaws.com/ritual-roast:latest"}]' > imagedefinitions.json
+  post_build:
+    commands:
+      - echo "Build completed."
+
+artifacts:
+  files:
+    - '**/*'  # Adjust this if you only want specific files
+    - imagedefinitions.json
