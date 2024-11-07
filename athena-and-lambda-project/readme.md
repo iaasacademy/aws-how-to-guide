@@ -8,19 +8,22 @@ Store and manage data in Amazon S3.
 Configure Amazon Athena to query the data using SQL.
 Set up AWS Lambda to automate the data analysis tasks.
 Use Amazon EventBridge to create a scheduled daily trigger for automation.
+
 🛠️ Prerequisites
 Before starting, ensure you have the following:
 
 An AWS account.
 Basic knowledge of AWS services like S3, Lambda, Athena, and EventBridge.
 Familiarity with AWS IAM roles and permissions.
+
 📘 Detailed Guide
-Refer to the YouTube tutorial for a step-by-step walkthrough of the project setup.
+Refer to the YouTube tutorial ( https://youtu.be/72Qalunaru4 ) for a step-by-step walkthrough of the project setup.
 
 💻 Run This Project
 Ensure all dependencies are configured and your AWS credentials are set up.
 Deploy the Lambda function and test the EventBridge trigger.
 Run the project and check your Athena results for daily insights.
+
 📝 License
 This project is licensed under the MIT License. Feel free to use and modify the code for educational and project-building purposes.
 
@@ -30,4 +33,4 @@ Contributions are welcome! Feel free to fork the repo, submit pull requests, or 
 📧 Contact
 For any questions or feedback, please contact [Your Email or Contact Info].
 
-With this README, users can quickly get started with your project, understand its purpose, and replicate the setup on their own AWS accounts.
+With this README, users can quickly start your project, understand its purpose, and replicate the setup on their own AWS accounts.
