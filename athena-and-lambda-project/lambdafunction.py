@@ -7,8 +7,8 @@ from datetime import datetime
 # Initialize Athena and S3 clients
 athena_client = boto3.client('athena')
 s3_client = boto3.client('s3')
-s3_bucket_name = "[BUCKET_NAME]"
-database_name = "[DATABASE_NAME]"
+s3_bucket_name = "[PLEASE ADD YOUR BUCKET_NAME]"
+database_name = "[PLEASE ADD YOUR DATABASE_NAME]"
 
 def create_table():
     """Create the raw_externals table if it does not exist."""
