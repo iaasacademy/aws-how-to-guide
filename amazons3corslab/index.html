@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 100%;
+        }
+        .logo {
+            width: 25%;
+            max-width: 400px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .banner {
+            width: 60%;
+            max-width: 100%;
+            height: auto;
+        }
+        #countdown-container {
+            margin-top: 20px;
+            padding: 10px;
+        }
+        #countdown-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #countdown {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d35400; /* Dark Orange */
+        }
+        .coming-soon {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 50px;
+        }
+        .coming-soon img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+        <img src="main-banner.jpg" alt="Main Banner" class="banner">
+    </div>
+
+    <div id="countdown-container">
+        <div id="countdown-text">Launches in:</div>
+        <h2 id="countdown"></h2>
+    </div>
+
+    <div class="coming-soon">
+        <img src="coming-soon.jpg" alt="Coming Soon">
+    </div>
+
+    <script>
+        // Set the target date
+        const targetDate = new Date("December 31, 2025 23:59:59").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft < 0) {
+                document.getElementById("countdown").innerHTML = "The countdown has ended!";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = 
+                `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial call
+        updateCountdown();
+    </script>
+</body>
+</html>
