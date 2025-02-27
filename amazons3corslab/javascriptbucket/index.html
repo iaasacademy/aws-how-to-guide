@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 100%;
+        }
+        .logo {
+            width: 25%;
+            max-width: 400px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .banner {
+            width: 60%;
+            max-width: 100%;
+            height: auto;
+        }
+        #countdown-container {
+            margin-top: 20px;
+        }
+        #countdown-label {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #countdown {
+            font-size: 32px;
+            font-weight: bold;
+            color: darkorange;
+            padding: 10px;
+        }
+        .coming-soon {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 50px;
+        }
+        .coming-soon img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+        <img src="main-banner.jpg" alt="Main Banner" class="banner">
+    </div>
+
+    <div id="countdown-container">
+        <div id="countdown-label">Launches in:</div>
+        <div id="countdown"></div>
+    </div>
+
+    <div class="coming-soon">
+        <img src="coming-soon.jpg" alt="Coming Soon">
+    </div>
+
+    <script>
+        // Fetch countdown script dynamically from another S3 bucket
+        fetch("https://PASTE-JAVASCRIPT-BUCKET-HERE.s3.amazonaws.com/countdown.js")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load countdown script");
+                }
+                return response.text();
+            })
+            .then(scriptContent => {
+                // Inject script into the page
+                const script = document.createElement("script");
+                script.textContent = scriptContent;
+                document.body.appendChild(script);
+            })
+            .catch(error => console.error("Error loading countdown script:", error));
+    </script>
+</body>
+</html>
