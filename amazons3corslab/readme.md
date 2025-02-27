@@ -4,7 +4,7 @@ This repository contains the source code and configuration files for the YouTube
 
 Repository Contents
 
-Root Directory - Contains the source code files for a basic static website (HTML, CSS, JavaScript).
+Root Directory - Contains the source code files for a basic static website (HTML, CSS, Images, etc.).
 
 javascriptbucket/ - Contains:
 
