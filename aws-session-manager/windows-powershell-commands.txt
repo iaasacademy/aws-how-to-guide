@@ -1,0 +1,5 @@
+$Password = Read-Host -AsSecureString
+# Enter your chosen password
+New-LocalUser "User01" -Password $Password
+
+Add-LocalGroupMember -Group "Remore Desktop Users" -Member "User01"
