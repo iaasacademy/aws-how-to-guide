@@ -1,16 +1,16 @@
 For Windows Command Prompt and Windows OS
 Step 1
-aws glacier initiate-job --account-id [ACCOUNT_ID]  --vault-name [VAULT_NAME] --job-parameters "{\"Type\": \"inventory-retrieval\"}"
+aws glacier initiate-job --account-id [ACCOUNT_ID]  --vault-name [VAULT_NAME] --job-parameters "{\"Type\": \"inventory-retrieval\"}" --profile [PROFILE]
 
 
 Step 2
-aws glacier describe-job –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –job-id *** jobid ***
+aws glacier describe-job -–vault-name [VAULT_NAME] -–account-id [ACCOUNT_ID] –job-id *** jobid *** --profile [PROFILE]
 
 Step 3
-aws glacier get-job-output –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –job-id *** jobid *** output.json
+aws glacier get-job-output -–vault-name [VAULT_NAME] –-account-id [ACCOUNT_ID] –job-id *** jobid *** output.json --profile [PROFILE]
 
 Step 4
 jq “.ArchiveList[] | .ArchiveId” output.json > archiveIds.txt
 
 Step 5
-aws glacier delete-archive –vault-name [VAULT_NAME] –account-id [ACCOUNT_ID] –archive-id *** archiveid ***
+aws glacier delete-archive -–vault-name [VAULT_NAME] –-account-id [ACCOUNT_ID] –-archive-id *** archiveid *** --profile [PROFILE]
