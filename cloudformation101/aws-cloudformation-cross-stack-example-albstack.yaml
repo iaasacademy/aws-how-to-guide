@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Deploy an Application Load Balancer with a target group in existing VPC public subnets.
+
+Parameters:
+  VpcName:
+    Type: String
+    Description: "Name of the existing VPC (used for cross-stack references)"
+
+Resources:
+  # Application Load Balancer
+  AppLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: !Sub "${VpcName}-alb"
+      Subnets: 
+        !Split 
+          - ","
+          - !ImportValue 
+              Fn::Sub: "${VpcName}-PublicSubnets"
+      SecurityGroups:
+        - !ImportValue 
+            Fn::Sub: "${VpcName}-LoadBalancerSGId"
+      Scheme: internet-facing
+      Type: application
+      IpAddressType: ipv4
+      Tags:
+        - Key: Name
+          Value: !Sub "${VpcName}-alb"
+
+  # Target Group
+  WebTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub "${VpcName}-tg"
+      VpcId: !ImportValue 
+        Fn::Sub: "${VpcName}-VPCId"
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "80"
+      HealthCheckPath: "/"
+      Matcher:
+        HttpCode: 200
+
+  # Listener
+  ALBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref AppLoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref WebTargetGroup
+
+Outputs:
+  LoadBalancerDNS:
+    Description: "DNS name of the ALB"
+    Value: !GetAtt AppLoadBalancer.DNSName
+    Export:
+      Name: !Sub "${VpcName}-ALBDNS"
+
+  TargetGroupArn:
+    Description: "ARN of the Target Group"
+    Value: !Ref WebTargetGroup
+    Export:
+      Name: !Sub "${VpcName}-TargetGroupArn"
