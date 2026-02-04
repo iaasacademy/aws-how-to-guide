@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Auto Scaling Group with Launch Template running Apache HTTPD,
+  integrated with SSM Session Manager for access,
+  and registered with an existing ALB Target Group.
+
+Parameters:
+  VpcName:
+    Type: String
+    Description: "Name of existing VPC stack (used for cross-stack references)"
+
+Resources:
+  # IAM Role for EC2 to allow SSM Session Manager access
+  EC2SSMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  # Instance Profile for EC2
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EC2SSMRole
+
+  # Launch Template for EC2 instances
+  WebServerLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        InstanceType: t3.micro
+        ImageId: ami-08982f1c5bf93d976   # Amazon Linux 2023 (update per region)
+        IamInstanceProfile:
+          Arn: !GetAtt EC2InstanceProfile.Arn
+        SecurityGroupIds:
+          - !ImportValue
+            'Fn::Sub': "${VpcName}-WebServerSGId"
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            sleep 60
+            dnf update -y
+            dnf install -y httpd
+            systemctl enable httpd
+            systemctl start httpd
+            echo "Welcome to CloudFormation" > /var/www/html/index.html
+
+  # Auto Scaling Group
+  WebServerASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier:
+        !Split
+          - ","
+          - !ImportValue
+              'Fn::Sub': "${VpcName}-PrivateSubnets"
+      MinSize: 2
+      MaxSize: 2
+      DesiredCapacity: 2
+      LaunchTemplate:
+        LaunchTemplateId: !Ref WebServerLaunchTemplate
+        Version: !GetAtt WebServerLaunchTemplate.LatestVersionNumber
+      TargetGroupARNs:
+        - !ImportValue
+            'Fn::Sub': "${VpcName}-TargetGroupArn"   # reference existing target group
+      HealthCheckType: ELB
+      HealthCheckGracePeriod: 180
+
+Outputs:
+  AutoScalingGroupName:
+    Description: "Name of the Auto Scaling Group"
+    Value: !Ref WebServerASG
+    Export:
+      Name: !Sub "${VpcName}-WebServerASG"
+
+  InstanceProfileName:
+    Description: "Instance Profile attached to EC2 instances"
+    Value: !Ref EC2InstanceProfile
+    Export:
+      Name: !Sub "${VpcName}-EC2InstanceProfile"
