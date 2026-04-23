@@ -2,7 +2,7 @@
 
 <h2>Stop using API calls to access S3. Mount it like a filesystem instead.</h2>
 
-This project demonstrates how to use Amazon S3 Files to mount an S3 bucket directly onto a Linux-based EC2 instance and interact with it using standard file system commands like ls, cat, and echo.
+This project demonstrates how to use Amazon S3 Files to mount an S3 bucket directly onto a Linux-based EC2 instance and interact with it using standard file system commands like ls, cat, and echo. Here is the link to the video - https://youtu.be/75mHfJPa8z0
 
 📺 Based on the full walkthrough video:
 
