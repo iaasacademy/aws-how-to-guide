@@ -36,17 +36,17 @@ aws s3 cp s3://my-bucket/file.txt ./file.txt
 
 👉 You couldn’t simply do:
 
-cat /mnt/s3/file.txt
-⚖️ The Old Approach (S3 vs EFS)
-📦 Amazon S3
-✅ Infinite scale
-✅ Cost-effective
-❌ API-based access
-❌ Higher latency for small files
-📁 Amazon EFS
-✅ POSIX-compliant filesystem
-✅ Native Linux support
-❌ Expensive at scale
+cat /mnt/s3/file.txt<br>
+⚖️ The Old Approach (S3 vs EFS)<br>
+📦 Amazon S3<br>
+✅ Infinite scale<br>
+✅ Cost-effective<br>
+❌ API-based access<br>
+❌ Higher latency for small files<br><p>
+📁 Amazon EFS<br>
+✅ POSIX-compliant filesystem<br>
+✅ Native Linux support<br>
+❌ Expensive at scale<br>
 
 👉 Many teams used EFS just to bridge the gap to S3.
 
