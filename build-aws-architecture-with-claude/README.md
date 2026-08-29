@@ -46,7 +46,6 @@ A well-architected, two-tier VPC across two Availability Zones. The instances ru
 | `userdata.sh` | Launch-template user data — self-configures each instance from S3 |
 | `instance-policy.json` | IAM policy — Bedrock, DynamoDB and S3 access for the instance role |
 | `requirements.txt` | Python dependencies |
-| `preview.html` | Standalone UI preview (open in any browser, no deploy needed) |
 
 ---
 
