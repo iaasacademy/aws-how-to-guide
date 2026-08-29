@@ -47,7 +47,6 @@ A well-architected, two-tier VPC across two Availability Zones. The instances ru
 | `instance-policy.json` | IAM policy — Bedrock, DynamoDB and S3 access for the instance role |
 | `requirements.txt` | Python dependencies |
 | `preview.html` | Standalone UI preview (open in any browser, no deploy needed) |
-| `TUTORIAL.md` | Full step-by-step build guide |
 
 ---
 
